@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
 
+import React from 'react'
+import './App.css';
+// import xrpl from "xrpl";
+
+
+const xrpl = require("xrpl")
+async function main() {
+  const client = new xrpl.Client("wss://s.altnet.rippletest.net:51233")
+  await client.connect()
+
+  const response = await client.request({
+    "command": "account_info",
+    "account": "rPT1Sjq2YGrBMTttX4GZHjKu9dyfzbpAYe",
+    "ledger_index": "validated"
+  })
+  console.log(response)
+
+  client.disconnect()
+}
+main()
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <h1>my first xrpl App</h1>
   );
 }
 
